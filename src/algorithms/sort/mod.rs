@@ -4,7 +4,7 @@ mod heap_sort;
 
 pub fn heap_sort<T>(seq: &mut Vec<T>)
 where
-    T: Ord + Debug,
+    T: Ord,
 {
     heap_sort::heap_sort(seq)
 }

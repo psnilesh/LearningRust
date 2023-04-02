@@ -1,8 +1,6 @@
-use std::fmt::Debug;
-
 pub fn heap_sort<T>(seq: &mut Vec<T>)
 where
-    T: Ord + Debug,
+    T: Ord,
 {
     if seq.is_empty() {
         return;
@@ -14,7 +12,6 @@ where
     for i in 0..len - 1 {
         let next_pos = len - 1 - i;
         seq.swap(0, next_pos);
-        println!("Largest is {:?}", seq[0]);
 
         heapify(seq, 0, next_pos - 1);
     }
@@ -91,5 +88,38 @@ mod tests {
 
         heap_sort(&mut tokens);
         assert_eq!(tokens_sorted_by_std_lib, tokens);
+    }
+
+    #[test]
+    fn test_heap_sort_struct() {
+        #[derive(PartialEq, Eq, PartialOrd, Ord, Clone, Debug)]
+        struct Person {
+            name: String,
+            age: u8,
+        }
+
+        let mut people = vec![
+            Person {
+                name: "John".to_string(),
+                age: 32,
+            },
+            Person {
+                name: "Bob".to_string(),
+                age: 30,
+            },
+            Person {
+                name: "Alice".to_string(),
+                age: 42,
+            },
+            Person {
+                name: "Jasmine".to_string(),
+                age: 35,
+            },
+        ];
+        let mut people_sorted_by_std = people.clone();
+        people_sorted_by_std.sort();
+
+        heap_sort(&mut people);
+        assert_eq!(people_sorted_by_std, people);
     }
 }
