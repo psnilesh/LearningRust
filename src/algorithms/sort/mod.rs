@@ -1,5 +1,3 @@
-use std::fmt::Debug;
-
 mod heap_sort;
 
 pub fn heap_sort<T>(seq: &mut Vec<T>)
